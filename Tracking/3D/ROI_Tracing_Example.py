@@ -4,7 +4,7 @@ import numpy as np
 import cv2 as cv2
 from RealSenseCamera import RealSenseCamera
 from ROITracker import ROITracker
-from Support.SimpleROISelector import SimpleROISelector
+from SimpleROISelector import SimpleROISelector
 
 
 """ MAIN """

@@ -14,8 +14,8 @@ import cv2
 
 """ FUNCTIONS """
 
-#function to draw contours around detected colours as well as print some text
-def draw_contours(mask, colour):
+#function to draw contours around detected colors as well as print some text
+def draw_contours(mask, color):
 
     # find contours in the masked image.
     cnts, _ = cv2.findContours(mask.copy(),
@@ -38,9 +38,9 @@ def draw_contours(mask, colour):
                     0.5, (255, 255, 255), 2, cv2.LINE_AA)
 
         # write a text to frame
-        color_name = str(colour["name"])
+        color_name = str(color["name"])
         cv2.putText(frame, color_name, (int(x+50), int(y+50)), cv2.FONT_HERSHEY_SIMPLEX,
-                    0.9, colour[0], 2, cv2.LINE_AA)
+                    0.9, color_bgr, 2, cv2.LINE_AA)
 
 
 """ MAIN """
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     # define a kernel for morphological operations
     kernel = np.ones((5, 5), np.uint8)
 
-    # BGR definitions for some colours
+    # BGR definitions for some colors
     blue = {"name": 'blue', "bgr": [255, 0, 0]}
     red = {"name": 'red', "bgr": [0, 0, 255]}
     green = {"name": 'green', "bgr": [0, 255, 0]}
