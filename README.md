@@ -96,4 +96,4 @@ Several packages are a must for an engineer when developing any kind of Python a
 
 [Mediapipe (by Google)](https://ai.google.dev/edge/mediapipe/solutions/guide) is an open-source library for artificial intelligence and machine learning. It proposes several cutting-edge trained models to perform all kinds of tasks in an efficient way. Additionally, it provides the possibility for advanced programmers to customize their models to run powerful real-time applications.
 
-`pip install mediapipe==0.10.9`
+`pip install mediapipe==0.10.18`
