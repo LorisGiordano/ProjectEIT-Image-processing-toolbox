@@ -93,15 +93,3 @@ while decrement_thread.is_alive() and increment_thread.is_alive():
 
 print(f"All background workers are complete")
 print(f"The final value in data is: {data['value']}")
-
-
-
-
-
-
-
-
-
-
-
-

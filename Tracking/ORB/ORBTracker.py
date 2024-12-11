@@ -1,9 +1,12 @@
+""" IMPORTS """
+
 import cv2 as cv2
 import numpy as np
 
 from SimpleROISelector import SimpleROISelector
 
 
+""" CLASS """
 class ORBTracker:
 
     def __init__(self, ref_img):
@@ -49,6 +52,9 @@ class ORBTracker:
         cv2.imshow("R", r)
         return
 
+
+""" FUNCTIONS """
+
 # Callback method for new roi to initialise the roi tracker
 def on_new_roi(roi):
     global tracker, image
@@ -60,6 +66,8 @@ def on_new_roi(roi):
     ref = image[y0: y0 + y1, x0: x0 + x1]
     tracker = ORBTracker(ref_img=ref)
     
+
+""" MAIN """
 
 if __name__ == "__main__":
 
@@ -95,6 +103,3 @@ if __name__ == "__main__":
     
     cap.release()
     cv2.destroyAllWindows()
-
-
-

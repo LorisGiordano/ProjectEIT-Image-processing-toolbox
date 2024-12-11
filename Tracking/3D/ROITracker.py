@@ -1,13 +1,18 @@
-# Import packages
+""" IMPORTS """
+
 import cv2 as cv2
 import numpy as np
 from KalmanROI import ROIFilter
 
 
+""" FUNCTIONS """
+
 def property_set(f):
     """ Decorator for set only property """
     return property(None, f)
 
+
+""" CLASS """
 
 class ROITracker:
     """ Object tracker using RGB-D data and an initial region of interest.
@@ -208,4 +213,3 @@ class ROITracker:
     @property
     def measured_roi(self):
         return self.__roi
-

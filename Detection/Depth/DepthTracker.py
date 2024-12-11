@@ -1,47 +1,12 @@
-# First import the library
+""" IMPORTS """
+
 import pyrealsense2 as rs
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
 
-# Create the pipeline which handles all connected realsense devices
-pipeline = rs.pipeline()
 
-# Create a configuration object
-config = rs.config()
-
-# Enable some sensors
-config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)          # Depth map uint16
-config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)         # Color map uint8 (x3 channels)
-
-# Start the pipeline
-profile = pipeline.start(config)
-
-# Get the scale of the depth camera
-depth_scale = profile.get_device().first_depth_sensor().get_depth_scale()
-
-# Create an align object
-# rs.align allows us to perform alignment of depth frames to others frames
-# The "align_to" is the stream type to which we plan to align depth frames.
-align_to = rs.stream.color
-align = rs.align(align_to)
-
-# Load the cascade
-cascade_dir = r"/Users/loris/anaconda3/envs/EIT_project/lib/python3.11/site-packages/cv2/data"
-face_cascade = cv2.CascadeClassifier(cascade_dir + r"/haarcascade_frontalface_default.xml")
-
-# List of post processing filters
-filters = [rs.disparity_transform(),
-           rs.spatial_filter(),
-           rs.temporal_filter(),
-           rs.disparity_transform(False)]
-
-# Define some cv2 windows so that we can control how we present images
-cv2.namedWindow("Color Image", cv2.WINDOW_NORMAL)
-cv2.namedWindow("Depth ColorMap", cv2.WINDOW_NORMAL)
-cv2.namedWindow("Depth ROI", cv2.WINDOW_NORMAL)
-
-
+""" FUNCTIONS """
 def ProcessData(color, depth, depth_color, color_intrinsic, depth_intrinsic):
 
     # Convert to grayscale
@@ -149,41 +114,80 @@ def ProcessData(color, depth, depth_color, color_intrinsic, depth_intrinsic):
         plt.show()
 
 
-try:
-    while True:
-        # Get frames and align
-        frames = pipeline.wait_for_frames()
-        aligned_frames = align.process(frames)
+""" MAIN """
 
-        # Get aligned frames
-        depth_frame = aligned_frames.get_depth_frame()
-        color_frame = aligned_frames.get_color_frame()
+if __name__ == '__main__':
 
-        # Postprocessing filters
-        for f in filters:
-            depth_frame = f.process(depth_frame)
+    # Create the pipeline which handles all connected realsense devices
+    pipeline = rs.pipeline()
 
-        # Grab new intrinsics (may be changed by decimation)
-        depth_intrinsics = rs.video_stream_profile(depth_frame.profile).get_intrinsics()
-        color_intrinsics = rs.video_stream_profile(color_frame.profile).get_intrinsics()
+    # Create a configuration object
+    config = rs.config()
 
-        # Create a numpy array images using this protocol with no data marshalling overhead:
-        depth_image = np.asanyarray(depth_frame.get_data())
-        color_image = np.asanyarray(color_frame.get_data())
+    # Enable some sensors
+    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)          # Depth map uint16
+    config.enable_stream(rs.stream.color, 640, 480, rs.format.bgr8, 30)         # Color map uint8 (x3 channels)
 
-        # Apply colormap to depth data (optional)
-        depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
+    # Start the pipeline
+    profile = pipeline.start(config)
 
-        # Perform data processing here
-        ProcessData(color_image, depth_image, depth_colormap, depth_intrinsics, color_intrinsics)
+    # Get the scale of the depth camera
+    depth_scale = profile.get_device().first_depth_sensor().get_depth_scale()
 
-        # Show the source images always, even if no faces were found
-        cv2.imshow("Color Image", color_image)
-        cv2.imshow("Depth ColorMap", depth_colormap)
-        cv2.waitKey(1)
+    # Create an align object
+    # rs.align allows us to perform alignment of depth frames to others frames
+    # The "align_to" is the stream type to which we plan to align depth frames.
+    align_to = rs.stream.color
+    align = rs.align(align_to)
+
+    # Load the cascade
+    cascade_dir = os.environ['CONDA_PREFIX'] +  r"/lib/python3.13/site-packages/cv2/data"
+    face_cascade = cv2.CascadeClassifier(cascade_dir + r"/haarcascade_frontalface_default.xml")
+
+    # List of post processing filters
+    filters = [rs.disparity_transform(),
+               rs.spatial_filter(),
+               rs.temporal_filter(),
+               rs.disparity_transform(False)]
+
+    # Define some cv2 windows so that we can control how we present images
+    cv2.namedWindow("Color Image", cv2.WINDOW_NORMAL)
+    cv2.namedWindow("Depth ColorMap", cv2.WINDOW_NORMAL)
+    cv2.namedWindow("Depth ROI", cv2.WINDOW_NORMAL)
+
+    try:
+        while True:
+            # Get frames and align
+            frames = pipeline.wait_for_frames()
+            aligned_frames = align.process(frames)
+
+            # Get aligned frames
+            depth_frame = aligned_frames.get_depth_frame()
+            color_frame = aligned_frames.get_color_frame()
+
+            # Postprocessing filters
+            for f in filters:
+                depth_frame = f.process(depth_frame)
+
+            # Grab new intrinsics (may be changed by decimation)
+            depth_intrinsics = rs.video_stream_profile(depth_frame.profile).get_intrinsics()
+            color_intrinsics = rs.video_stream_profile(color_frame.profile).get_intrinsics()
+
+            # Create a numpy array images using this protocol with no data marshalling overhead:
+            depth_image = np.asanyarray(depth_frame.get_data())
+            color_image = np.asanyarray(color_frame.get_data())
+
+            # Apply colormap to depth data (optional)
+            depth_colormap = cv2.applyColorMap(cv2.convertScaleAbs(depth_image, alpha=0.03), cv2.COLORMAP_JET)
+
+            # Perform data processing here
+            ProcessData(color_image, depth_image, depth_colormap, depth_intrinsics, color_intrinsics)
+
+            # Show the source images always, even if no faces were found
+            cv2.imshow("Color Image", color_image)
+            cv2.imshow("Depth ColorMap", depth_colormap)
+            cv2.waitKey(1)
 
 
-finally:
-    pipeline.stop()
-
-
+    finally:
+        pipeline.stop()

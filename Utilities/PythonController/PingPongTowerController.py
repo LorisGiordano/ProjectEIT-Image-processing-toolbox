@@ -1,3 +1,5 @@
+""" IMPORTS """
+
 import time
 
 import numpy as np
@@ -5,6 +7,8 @@ from serial import Serial
 from serial.tools import list_ports
 import re
 
+
+""" CLASS """
 
 class Controller:
 
@@ -146,6 +150,8 @@ class Controller:
         Controller.__open_ports.pop(self, None)
 
 
+""" MAIN """
+
 if __name__ == "__main__":
 
     # Instantiate the python controller
@@ -165,11 +171,3 @@ if __name__ == "__main__":
 
         # Send a new pwm value to the controller
         c.set_pwm(pwm)
-
-
-
-
-
-
-
-

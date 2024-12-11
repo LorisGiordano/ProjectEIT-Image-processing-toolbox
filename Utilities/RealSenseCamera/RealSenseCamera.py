@@ -1,4 +1,5 @@
-# Import packages
+""" IMPORTS """
+
 import time
 import pyrealsense2 as rs
 import cv2 as cv2
@@ -7,6 +8,9 @@ from threading import Thread, Lock
 from dataclasses import dataclass
 import datetime
     
+    
+""" FUNCTIONS """
+
 def intrinsics_to_numpy(intrinsics: rs.intrinsics):
     """ Converts realsense intrinsics into numpy arrays """
 
@@ -20,6 +24,8 @@ def intrinsics_to_numpy(intrinsics: rs.intrinsics):
 
     return camera_matrix, distortion
 
+
+""" CLASSES """
 
 @dataclass
 class RealSenseFrame:
@@ -208,6 +214,8 @@ class RealSenseCamera:
         return rs.video_stream_profile(frame.profile).get_intrinsics()
 
 
+""" MAIN """
+
 if __name__ == "__main__":
 
     devices = rs.context().query_devices()
@@ -241,8 +249,3 @@ if __name__ == "__main__":
         depth_image = cv2.applyColorMap(depth_image, cv2.COLORMAP_JET)           # Apply colormap
         cv2.imshow("Stream", np.hstack((color_image, depth_image)))              # Display color and depth maps together
         cv2.waitKey(1)                                                           # Wait 1 millisecond
-
-
-
-
-

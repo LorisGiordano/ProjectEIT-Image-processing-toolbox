@@ -1,27 +1,11 @@
-# First import the library
+""" IMPORTS """
+
 import pyrealsense2 as rs
 import numpy as np
 import cv2
 
-webcam = True
 
-# open webcam video stream
-if webcam:
-    cap = cv2.VideoCapture(0)
-    
-else:
-    # Create the pipeline which handles all connected realsense devices
-    pipeline = rs.pipeline()
-    
-    # Create a configuration object
-    config = rs.config()
-    
-    # Enable some sensors
-    config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)          # Depth map uint16
-    config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)         # Color map uint8 (x3 channels)
-    
-    # Start the pipeline
-    profile = pipeline.start(config)
+""" FUNCTIONS """
 
 def create_blob_detector():
     # Parameters object for simple blob detector, and assign parameters
@@ -75,50 +59,75 @@ def check_thresholds(src, thresholdStep=20):
         mask = cv2.inRange(gray, th, th+thresholdStep)
         cv2.imshow(str(th) + "-" + str(th+thresholdStep), mask)
     
-
 def draw_blobs(img, kpts):
     return cv2.drawKeypoints(img, kpts, np.array([]), (0, 0, 255), cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 
-# The blob detector object
-blob_detector = create_blob_detector()
+""" MAIN """
 
+if __name__ == '__main__':
 
-try:
-    while True:
-        if webcam:
-            # Capture frame-by-frame for computer webcam
-            ret, color_image = cap.read()
-        
-        else:
-            # Capture temporal synchronized device data
-            frames = pipeline.wait_for_frames()
-    
-            # Get the needed frames form the frames pipeline
-            depth_frame = frames.get_depth_frame()
-            color_frame = frames.get_color_frame()
-    
-            # Create a numpy array images
-            # A numpy array can be constructed using this protocol with no data marshalling overhead:
-            depth_image = np.asanyarray(depth_frame.get_data())
-            color_image = np.asanyarray(color_frame.get_data())
-            
-        # Detect blobs as keypoints
-        kps = detect_blobs(color_image)
+    webcam = True
 
-        # Draw blobs on image
-        color_image = draw_blobs(color_image, kps)
-
-        # Show both images in windows
-        cv2.imshow("Color Image", color_image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
-finally:
+    # open webcam video stream
     if webcam:
-        # When everything done, release the capture
-        cap.release()
+        cap = cv2.VideoCapture(0)
+        
     else:
-        pipeline.stop()
-    # finally, close the window
-    cv2.destroyAllWindows()
+        # Create the pipeline which handles all connected realsense devices
+        pipeline = rs.pipeline()
+        
+        # Create a configuration object
+        config = rs.config()
+        
+        # Enable some sensors
+        config.enable_stream(rs.stream.depth, 640, 480, rs.format.z16, 30)          # Depth map uint16
+        config.enable_stream(rs.stream.color, 1280, 720, rs.format.bgr8, 30)         # Color map uint8 (x3 channels)
+        
+        # Start the pipeline
+        profile = pipeline.start(config)
+
+
+    # The blob detector object
+    blob_detector = create_blob_detector()
+
+    
+    # Run detection
+    try:
+        while True:
+            if webcam:
+                # Capture frame-by-frame for computer webcam
+                ret, color_image = cap.read()
+            
+            else:
+                # Capture temporal synchronized device data
+                frames = pipeline.wait_for_frames()
+        
+                # Get the needed frames form the frames pipeline
+                depth_frame = frames.get_depth_frame()
+                color_frame = frames.get_color_frame()
+        
+                # Create a numpy array images
+                # A numpy array can be constructed using this protocol with no data marshalling overhead:
+                depth_image = np.asanyarray(depth_frame.get_data())
+                color_image = np.asanyarray(color_frame.get_data())
+                
+            # Detect blobs as keypoints
+            kps = detect_blobs(color_image)
+
+            # Draw blobs on image
+            color_image = draw_blobs(color_image, kps)
+
+            # Show both images in windows
+            cv2.imshow("Color Image", color_image)
+            if cv2.waitKey(1) & 0xFF == ord('q'):
+                break
+
+    finally:
+        if webcam:
+            # When everything done, release the capture
+            cap.release()
+        else:
+            pipeline.stop()
+        # finally, close the window
+        cv2.destroyAllWindows()

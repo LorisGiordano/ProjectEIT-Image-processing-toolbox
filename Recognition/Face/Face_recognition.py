@@ -14,31 +14,9 @@ Read the annotations and ask questions (to the internet, chatGPT, or the assiste
 
 """ IMPORTS """
 
-# pre-installed with python
 import os
-
-# instalation required
 import cv2          # copy the following in your console: pip install opencv-contrib-python
 import numpy as np  # copy the following in your console: conda install numpy
-
-# whitespace after imports for clarity in console
-print()
-# remove previous windows if still existing
-cv2.destroyAllWindows()
-
-
-""" RECOGNITION PARAMETERS """
-
-# Amount of images to collect for each person
-n_training_images_per_person = 10
-
-# If true: manually input labels, if false: labels assigned automatically
-named_labels = False
-
-
-""" VIDEO STREAM """
-
-cap = cv2.VideoCapture(0)
 
 
 """ FUNCTIONS """
@@ -107,94 +85,100 @@ def recognize_faces(frame, display_labels):
 
     return frame
     
-
-""" VARIABLES """
-
-# Get face detection filter
-cascade_dir = os.environ['CONDA_PREFIX'] + r"/lib/python3.12/site-packages/cv2/data"
-face_cascade = cv2.CascadeClassifier(cascade_dir + r"/haarcascade_frontalface_default.xml")
-
-# Store images, labels and display labels
-number_person = 0
-images = []
-labels = []
-display_labels = []
-
-# Create empty/untrained face recognizder
-recognizer = cv2.face.LBPHFaceRecognizer_create()
-
-
-""" DATA COLLECTION LOOP """
-
-# Main loop for training
-while True:
     
-    # Show image
-    _, frame = cap.read()
-    cv2.imshow('Video', frame)
+""" MAIN """
+
+if __name__ == '__main__':
     
-    k = cv2.waitKey(50) & 0xff
-    # Spacebar: Collect person
-    if k == 32:
-        # set label as number of perosn
-        person_label = "person" + str(number_person)
-        # if manual label
-        if named_labels:
-            # get manual label from terminal
-            person_label = input(f"Label for person {number_person}: ")
-        person_label = person_label.lower()
-        # collect images for that person
-        person = collect_person()
-        # store images, labels and display labels
-        images.extend(person)
-        labels.extend(len(person)*[number_person])
-        display_labels.append(person_label)
-        number_person += 1
-        cv2.destroyAllWindows()
+    # SETUP
     
-    # Enter/Escape: Stop collection
-    elif k == 13 or k == 27:
-        break
+    # Recognition parameters
+    n_training_images_per_person = 10
+    named_labels = False # true: manually input labels, false: labels assigned automatically
+
+    # Video capture
+    cap = cv2.VideoCapture(0)
+
+    # Get face detection filter
+    cascade_dir = os.environ['CONDA_PREFIX'] + r"/lib/python3.12/site-packages/cv2/data"
+    face_cascade = cv2.CascadeClassifier(cascade_dir + r"/haarcascade_frontalface_default.xml")
+
+    # Store images, labels and display labels
+    number_person = 0
+    images = []
+    labels = []
+    display_labels = []
+
+    # Create empty/untrained face recognizder
+    recognizer = cv2.face.LBPHFaceRecognizer_create()
 
 
-""" TRAINING OF FACE RECOGNITION """
+    # DATA COLLECTION LOOP
 
-if images:
-
-    # Train the LBPH face recognizer
-    recognizer.train(images, np.array(labels))
-    # Allow main loop to start if recognizer trained
-    go = True
-    
-else:
-    
-    # Recognizer not trained => main loop not starting
-    go = False
-
-
-""" MAIN LOOP """
-
-# Remove the following line to unblock the code:
-raise SystemExit("Go through the code carefully and remove the error to make the code run!\n")
-
-
-while go:
-    
-    # Get a new frame
-    _, frame = cap.read()
-    
-    # Detect and recognize faces
-    frame = recognize_faces(frame, display_labels)
-
-    # Display resulting frame
-    cv2.imshow('Video', frame)
-
-    # Stop the program if the ESC key is pressed.
-    if cv2.waitKey(1) & 0xFF == 27:
-        break
+    while True:
+        
+        # Show image
+        _, frame = cap.read()
+        cv2.imshow('Video', frame)
+        
+        k = cv2.waitKey(50) & 0xff
+        # Spacebar: Collect person
+        if k == 32:
+            # set label as number of perosn
+            person_label = "person" + str(number_person)
+            # if manual label
+            if named_labels:
+                # get manual label from terminal
+                person_label = input(f"Label for person {number_person}: ")
+            person_label = person_label.lower()
+            # collect images for that person
+            person = collect_person()
+            # store images, labels and display labels
+            images.extend(person)
+            labels.extend(len(person)*[number_person])
+            display_labels.append(person_label)
+            number_person += 1
+            cv2.destroyAllWindows()
+        
+        # Enter/Escape: Stop collection
+        elif k == 13 or k == 27:
+            break
 
 
-""" CLOSE VIDEO STREAM """
+    # TRAINING OF FACE RECOGNITION
 
-cap.release()
-cv2.destroyAllWindows()
+    if images:
+
+        # Train the LBPH face recognizer
+        recognizer.train(images, np.array(labels))
+        # Allow main loop to start if recognizer trained
+        go = True
+        
+    else:
+        
+        # Recognizer not trained => main loop not starting
+        go = False
+
+
+    # MAIN LOOP
+
+    while go:
+        
+        # Get a new frame
+        _, frame = cap.read()
+        
+        # Detect and recognize faces
+        frame = recognize_faces(frame, display_labels)
+
+        # Display resulting frame
+        cv2.imshow('Video', frame)
+
+        # Stop the program if the ESC key is pressed.
+        if cv2.waitKey(1) & 0xFF == 27:
+            break
+
+
+    """ CLOSE VIDEO STREAM """
+
+    cap.release()
+    cv2.destroyAllWindows()

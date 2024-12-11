@@ -5,17 +5,20 @@ Created on Tue Feb  9 20:14:49 2021
 
 @author: bkeelson
 """
+
+""" IMPORTS """
+
 import numpy as np
 import cv2
 
 
+""" FUNCTIONS """
+
 #function to draw contours around detected colours as well as print some text
-def draw_contours(Mask,colour):
-    text=str(colour[1])
-    # print(text)
+def draw_contours(mask, colour):
 
     # find contours in the masked image.
-    cnts, _ = cv2.findContours(Mask.copy(),
+    cnts, _ = cv2.findContours(mask.copy(),
                                     cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     # look for any contours 
@@ -25,19 +28,22 @@ def draw_contours(Mask,colour):
         # Get the radius of the enclosing circle around the found contour
         ((x, y), radius) = cv2.minEnclosingCircle(cnt)
         # Draw the circle around the contour
-        cv2.circle(frame, (int(x), int(y)), int(radius), colour[0], 2)
+        color_bgr = color["bgr"]
+        cv2.circle(frame, (int(x), int(y)), int(radius), color_bgr, 2)
         # Get the moments to calculate the center of the contour
         M = cv2.moments(cnt)
-        center = (int(M['m10'] / M['m00']), int(M['m01'] / M['m00']))
-
-        centroid = str(center)
-
-        cv2.putText(frame, centroid, center, cv2.FONT_HERSHEY_SIMPLEX,
+        center_point = (int(M['m10'] / M['m00']), int(M['m01'] / M['m00']))
+        center_str = str(center_point)
+        cv2.putText(frame, center_str, center_point, cv2.FONT_HERSHEY_SIMPLEX,
                     0.5, (255, 255, 255), 2, cv2.LINE_AA)
 
         # write a text to frame
-        cv2.putText(frame, str(text), (int(x+50), int(y+50)), cv2.FONT_HERSHEY_SIMPLEX,
+        color_name = str(colour["name"])
+        cv2.putText(frame, color_name, (int(x+50), int(y+50)), cv2.FONT_HERSHEY_SIMPLEX,
                     0.9, colour[0], 2, cv2.LINE_AA)
+
+
+""" MAIN """
 
 if __name__ == "__main__":
     
@@ -47,24 +53,49 @@ if __name__ == "__main__":
     width  = cap.get(3)   # float `width`
     height = cap.get(4)
 
-    #define a kernel for morphological operations
+    # define a kernel for morphological operations
     kernel = np.ones((5, 5), np.uint8)
 
-    #BGR definitions for some colours
-    blue = [[255, 0, 0],'blue']
-    red = [[0, 0, 255], 'red']
-    green = [[0, 255, 0],"green"]
-    yellow=[[0,255,255],'yellow']
-    black = [[0, 0, 0],'black']
+    # BGR definitions for some colours
+    blue = {"name": 'blue', "bgr": [255, 0, 0]}
+    red = {"name": 'red', "bgr": [0, 0, 255]}
+    green = {"name": 'green', "bgr": [0, 255, 0]}
+    yellow = {"name": 'yellow', "bgr": [0, 255, 255]}
+    black = {"name": 'black', "bgr": [0, 0, 0]}
     
-    ## loop to continuously acquire frames from the webcam
+    # loop to continuously acquire frames from the webcam
     while True:
         
         # Get frame of camera ([camera resolution] x [Blue-green-red])
         _, frame = cap.read()
+        
         # BGR to Hue Saturation Value
         hsv_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
+        
+        
+        # Blue color
+        low_blue = np.array([94, 80, 2])
+        high_blue = np.array([126, 255, 255])
+        blue_mask = cv2.inRange(hsv_frame, low_blue, high_blue)
+        blue_mask = cv2.erode(blue_mask, kernel, iterations=2)
+        blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_OPEN, kernel)
+        blue_mask = cv2.dilate(blue_mask, kernel, iterations=1)
+        draw_contours(blue_mask, blue)
+        # blue = cv2.bitwise_and(frame, frame, mask=blue_mask)
     
+    
+        # Green color
+        low_green = np.array([40, 52, 72])
+        high_green = np.array([102, 255, 255])
+        green_mask = cv2.inRange(hsv_frame, low_green, high_green)
+        green_mask = cv2.erode(green_mask, kernel, iterations=2)
+        green_mask = cv2.morphologyEx(green_mask, cv2.MORPH_OPEN, kernel)
+        green_mask = cv2.dilate(green_mask, kernel, iterations=1)
+        draw_contours(green_mask, green)
+        # green = cv2.bitwise_and(frame, frame, mask=green_mask)
+    
+    
+        # Red color
         # detecting Red color requires a bit of a work around. The red color is represented by 0-30 as well as 150-180 values in openCV.
         # We use the range 0-10 and 170-180 to avoid detection of skin as red. 
         # High range of 120-255 for saturation is used because our cloth should be of highly saturated red color. 
@@ -88,30 +119,8 @@ if __name__ == "__main__":
         red_mask = cv2.dilate(red_mask, kernel, iterations=1)
         draw_contours(red_mask,red)
         # red = cv2.bitwise_and(frame, frame, mask=red_mask)
-    
-        # Blue color
-        low_blue = np.array([94, 80, 2])
-        high_blue = np.array([126, 255, 255])
-        blue_mask = cv2.inRange(hsv_frame, low_blue, high_blue)
-        blue_mask = cv2.erode(blue_mask, kernel, iterations=2)
-        blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_OPEN, kernel)
-        blue_mask = cv2.dilate(blue_mask, kernel, iterations=1)
-        draw_contours(blue_mask,blue)
-        # blue = cv2.bitwise_and(frame, frame, mask=blue_mask)
-    
-    
-    
-        # Green color
-        low_green = np.array([40, 52, 72])
-        high_green = np.array([102, 255, 255])
-        green_mask = cv2.inRange(hsv_frame, low_green, high_green)
-        green_mask = cv2.erode(green_mask, kernel, iterations=2)
-        green_mask = cv2.morphologyEx(green_mask, cv2.MORPH_OPEN, kernel)
-        green_mask = cv2.dilate(green_mask, kernel, iterations=1)
-        draw_contours(green_mask,green)
-        # green = cv2.bitwise_and(frame, frame, mask=green_mask)
-    
-    
+        
+        
         # Yellow color
         low_yellow = np.array([20, 100, 100])
         high_yellow = np.array([30, 255, 255])
@@ -121,6 +130,7 @@ if __name__ == "__main__":
         yellow_mask = cv2.dilate(yellow_mask, kernel, iterations=1)
         draw_contours(yellow_mask, yellow)
         
+        
         # Black color
         low_black = np.array([0, 0, 0])
         high_black = np.array([100, 100, 100])
@@ -129,11 +139,12 @@ if __name__ == "__main__":
         black_mask = cv2.morphologyEx(black_mask, cv2.MORPH_OPEN, kernel)
         black_mask = cv2.dilate(black_mask, kernel, iterations=1)
         draw_contours(black_mask, black)
-    
-    
+        
+        
+        # Show frame
         cv2.imshow("Frame", frame)
     
-        #to quit
+        # to quit
         if cv2.waitKey(1) & 0xFF == 27:
             break
     
@@ -141,4 +152,3 @@ if __name__ == "__main__":
     # When everything done, release the capture
     cap.release()
     cv2.destroyAllWindows()
-    

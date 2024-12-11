@@ -5,11 +5,14 @@ Created on Wed Feb 20 08:47:53 2019
 @author: bkeelson
 """
 
+
+""" IMPORTS """
+
 import cv2
 import numpy as np
 
-events= [i for i in dir(cv2) if 'EVENT' in i]
-# print(events)
+
+""" FUNCTIONS """
 
 drawing = False #when true mouse is pressed
 mode = True # when true we draw rectangle else we draw a circle toggle using m
@@ -50,7 +53,13 @@ def draw_shape(event, x, y, flags, param):
             # show image
             cv2.imshow('image', img)
             
+            
+""" MAIN """
+
 if __name__ == "__main__":
+
+    events= [i for i in dir(cv2) if 'EVENT' in i]
+    # print(events)
     
     img = np.zeros((512,512,3), np.uint8)
     cv2.namedWindow('image')

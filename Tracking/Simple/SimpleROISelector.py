@@ -1,6 +1,10 @@
+""" IMPORTS """
+
 import cv2 as cv2
 import numpy as np
 
+
+""" CLASS """
 
 class SimpleROISelector:
 
@@ -92,6 +96,8 @@ class SimpleROISelector:
             cv2.rectangle(param, p1, p2, (255, 255, 255), 2, 1)
 
 
+""" MAIN """
+
 if __name__ == "__main__":
 
     # Create an video capture object
@@ -125,7 +131,3 @@ if __name__ == "__main__":
         # Display image to window
         cv2.imshow("Webcam", frame)
         cv2.waitKey(1)
-
-
-
-

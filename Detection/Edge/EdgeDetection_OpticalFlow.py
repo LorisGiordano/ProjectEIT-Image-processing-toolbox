@@ -3,12 +3,17 @@
 # mcovenek@etrovub.be
 # 11-02-2020
 
+""" IMPORTS """
+
 import warnings
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 import cv2
 import numpy as np 
 import time
+
+
+""" FUNCTIONS """
 
 def computeEdges(frame):
     edges = cv2.GaussianBlur(frame, (3, 3), sigmaX=1.5, sigmaY=1.5)
@@ -27,6 +32,9 @@ def flowToColor(flow):
     hsv[..., 2] = cv2.normalize(mag, None, 0, 255, cv2.NORM_MINMAX)
     rgb = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
     return rgb
+
+
+""" MAIN """
 
 if __name__ == "__main__":
     

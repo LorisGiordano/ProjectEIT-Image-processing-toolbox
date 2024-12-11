@@ -1,5 +1,10 @@
+""" IMPORTS """
+
 import numpy as np
 import cv2 as cv2
+
+
+""" CLASS """
 
 class ROIFilter:
 

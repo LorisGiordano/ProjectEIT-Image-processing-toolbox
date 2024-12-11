@@ -19,9 +19,7 @@ from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier # copy t
 from sklearn.model_selection import train_test_split
 from sklearn.metrics import confusion_matrix
 import joblib                       # copy the following in your console: conda install joblib
-
-# not included to not make installation too difficult
-# import matplotlib.pyplot as plt     # copy the following in your console: conda install matplotlib
+import matplotlib.pyplot as plt     # copy the following in your console: conda install matplotlib
 
 
 """ CLASSES """
@@ -40,12 +38,11 @@ class RandomForest():
         self.trained = False
         
         
-    def dataset(self, data_directory, get_sample, test_size=0.2):
+    def dataset(self, data_directory, get_sample, test_size=0.2, load_subset=-1):
         
         # Initialize inputs and labels 
         X = []
         y = []
-        i = 0
         # Go over directory
         for label in sorted(os.listdir(data_directory)):
             
@@ -55,15 +52,15 @@ class RandomForest():
                 continue
             # Print label of the folder
             print(f'Label: {label}')
+            i = 0
             for data_sample in os.listdir(label_dir):
                 data_sample_path = os.path.join(label_dir, data_sample)
-                landmarks = get_sample(data_sample_path)
-                if landmarks is not None:
-                    X.append(landmarks)
+                feature_vector = get_sample(data_sample_path)
+                if feature_vector is not None:
+                    X.append(feature_vector)
                     y.append(label)
                 i += 1
-                if i == 10:
-                    i = 0
+                if i == load_subset:
                     break
     
         for i in range(3):
@@ -117,23 +114,23 @@ class RandomForest():
     def get_confusion_matrix(self):
         
         if self.trained:
-#            plt.imshow(self.conf_matrix, interpolation='nearest')
-#            plt.title("Confusion matrix")
-#            plt.colorbar()
-#            tick_marks = np.arange(len(self.labels))
-#            plt.xticks(tick_marks, self.labels, rotation=45)
-#            plt.yticks(tick_marks, self.labels)
-#
-#            shape = np.shape(self.conf_matrix)
-#            for i in range(shape[0]):
-#                for j in range(shape[1]):
-#                    plt.text(j, i, format(self.conf_matrix[i, j], 'd'),
-#                             horizontalalignment="center",
-#                             color="white")
-#
-#            plt.tight_layout()
-#            plt.ylabel('True label')
-#            plt.xlabel('Predicted label')
+            plt.imshow(self.conf_matrix, interpolation='nearest')
+            plt.title("Confusion matrix")
+            plt.colorbar()
+            tick_marks = np.arange(len(self.labels))
+            plt.xticks(tick_marks, self.labels, rotation=45)
+            plt.yticks(tick_marks, self.labels)
+
+            shape = np.shape(self.conf_matrix)
+            for i in range(shape[0]):
+                for j in range(shape[1]):
+                    plt.text(j, i, format(self.conf_matrix[i, j], 'd'),
+                             horizontalalignment="center",
+                             color="white")
+
+            plt.tight_layout()
+            plt.ylabel('True label')
+            plt.xlabel('Predicted label')
             return self.conf_matrix
         
 
@@ -190,22 +187,26 @@ class AdaBoost():
     def train(self):
         
         if self.X_train is not None:
+        
+            # Train model
             print('Training...')
             self.adaptive_boosting_classifier.fit(self.X_train, self.y_train)
+            print('Training done.')
             
+            # Test model
             start_time = time.time()
             y_pred = self.adaptive_boosting_classifier.predict(self.X_test)
             end_time = time.time()
             self.time_per_prediction = (end_time - start_time)/len(self.X_test)
-            print('\nTime per prediction:')
-            print(self.time_per_prediction)
+            print('\nTime per prediction: ' + self.time_per_prediction + ' seconds')
 
             # Calculate confusion matrix
             self.conf_matrix = confusion_matrix(self.y_test, y_pred)
             print("\nConfusion Matrix:")
             print(self.conf_matrix)
             self.trained = True
-        
+            
+            # Save model
             save_path = os.path.dirname(__file__) + '/adaptive_boosting_classifier.pkl'
             joblib.dump(self.adaptive_boosting_classifier, save_path)
             print('\nModel save to:')
@@ -224,23 +225,23 @@ class AdaBoost():
     def get_confusion_matrix(self):
         
         if self.trained:
-#                plt.imshow(self.conf_matrix, interpolation='nearest')
-#                plt.title("Confusion matrix")
-#                plt.colorbar()
-#                tick_marks = np.arange(len(self.labels))
-#                plt.xticks(tick_marks, self.labels, rotation=45)
-#                plt.yticks(tick_marks, self.labels)
-#                
-#                shape = np.shape(self.conf_matrix)
-#                for i in range(shape[0]):
-#                    for j in range(shape[1]):
-#                        plt.text(j, i, format(self.conf_matrix[i, j], 'd'),
-#                                 horizontalalignment="center",
-#                                 color="white")
-#            
-#                plt.tight_layout()
-#                plt.ylabel('True label')
-#                plt.xlabel('Predicted label')
+            plt.imshow(self.conf_matrix, interpolation='nearest')
+            plt.title("Confusion matrix")
+            plt.colorbar()
+            tick_marks = np.arange(len(self.labels))
+            plt.xticks(tick_marks, self.labels, rotation=45)
+            plt.yticks(tick_marks, self.labels)
+            
+            shape = np.shape(self.conf_matrix)
+            for i in range(shape[0]):
+                for j in range(shape[1]):
+                    plt.text(j, i, format(self.conf_matrix[i, j], 'd'),
+                             horizontalalignment="center",
+                             color="white")
+        
+            plt.tight_layout()
+            plt.ylabel('True label')
+            plt.xlabel('Predicted label')
             return self.conf_matrix
 
 

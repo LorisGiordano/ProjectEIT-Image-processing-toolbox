@@ -5,6 +5,9 @@ Created on Fri Mar  8 09:43:32 2019
 @author: mcovenek
 """
 
+
+""" IMPORTS """
+
 import cv2
 import sys
  
@@ -14,6 +17,9 @@ minor_ver = ver[2]
 
 # (major_ver, minor_ver, subminor_ver) = (cv2.__version__).split('.')￼
  
+ 
+""" MAIN """
+
 if __name__ == '__main__' :
  
     # Set up tracker.

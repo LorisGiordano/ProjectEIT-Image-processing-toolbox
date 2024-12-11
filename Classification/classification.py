@@ -4,46 +4,48 @@
 Created on Wed Mar 20 11:35:26 2024
 
 @author: loris
-
 """
 
-""" """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """
-""" """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """
-"""                                                                 """
-"""                 Please read the comments carefully              """
-"""             Inform yourself on concepts you are using           """
-"""                                                                 """
-"""         Questions will be asked about machine learning!         """
-"""                                                                 """
-"""                                                                 """
-""" """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """
-""" """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """ """
 
 """ IMPORTS """
 
-import joblib       # copy the following in your console: conda install joblib
-from Classifiers import RandomForest, AdaBoost # These classes require the following packages: numpy, sklearn. Details on installation in Classifiers.py (line 16-21)
+# Installl the packages if this is not done!
+#   - numpy
+#   - sklearn
+#   - matplotlib
+#   - joblib
+
+import joblib
+from Classifiers import RandomForest
 
 
-""" INIATALIZATION OF TRAINER """
+""" TEST """
 
-# TODO: Anser the questions on line 252-257 before using the rest of the code
+# Things you should know before using these classifiers
+#    1. What is an input, what is a feature, what is an output?
+#    2. What is a parameter, hyperparameter, architecture?
+#    3. Which type of classifier are RandomForest and AdaBoost based on? Explain the principle.
+#    4. How does RandomForest extend this principle? And AdaBoost?
+#    5. How do we use data to train RandomForest and AdaBoost classifiers?
 
-# Initialize Random Forest classification trainer
-random_forest = RandomForest()
 
-# Initialize Adaptive Boosting classification trainer
-adaboost = AdaBoost()
+""" INITIALIZING TRAINER """
+
+# TODO: Initialize Random Forest classification trainer
+
+# Radnom Forest classification trainer
+random_forest = "YOUR CODE HERE"
 
 
-""" DATASET """
+""" LOADING DATASET """
 
-# TODO: The datset need to be given in a certain structure. Check Classsifiers.py (line 268-283) for more details
+# TODO: Setup your dataset with the correct structure -> Check Canvas, Github or Classsifiers.py (line 268-283) for more details
 
 # Path to dataset
 path_to_dataset = 'Absolute/path/to/dataset'
 
-# TODO: Define how to extract the information of one sample from a file in your dataset. Check Classifiers.py (line 288-319) for examples
+
+# TODO: Define how to extract the information of one sample from a file in your dataset -> Check Canvas, Github or Classifiers.py (line 288-319) for more details
 
 # Function to extract features
 def get_sample(data_sample_path):
@@ -67,11 +69,13 @@ random_forest.train()
 
 """ USING MODEL """
 
+# Load model
 model_path = '/Absolute/path/to/model'
 random_forest_classifier = joblib.load(model_path)
 
-X_input = [ [0,0,0,0,0],
-            [1,1,1,1,1] ]
-            
+# Get input
+X_input = None
+
+# Predict output
 y_output = random_forest_classifier.predict(X_input)
 print(str(y_output))

@@ -27,7 +27,7 @@ from mediapipe.tasks.python import vision
 from mediapipe.framework.formats import landmark_pb2
 
 
-""" FUNCTIONS """
+""" CLASS """
 
 class HandRecognizer():
     
