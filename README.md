@@ -14,11 +14,15 @@ Detect objects, colors, edges, faces, people, and much more using [opencv](https
 
 ### [Recognition](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Recognition)
 
-Recognize hand gestures and faces using [opencv](https://docs.opencv.org/4.x/) and [mediapipe](https://ai.google.dev/edge/mediapipe/solutions/guide). In this module, we dive deeper into the recognition of humans in images so that they can interact with computers. We will understand how our computer can understand human attributes like hands and faces and how we can optimize this to interact with our computer in real time. We will look at the fastest and most powerful machine-learning models that are used for these tasks and learn how to process an image using those tools. What we can do with these results is up to you.
+Recognize hand gestures and faces using [opencv](https://docs.opencv.org/4.x/) and [mediapipe](https://ai.google.dev/edge/mediapipe/solutions/guide). In this module, we dive deeper into the recognition of humans in images so that they can interact with computers. We will understand how our computer can understand human attributes like hands and faces and how we can optimize this to interact with our computer in real-time. We will look at the fastest and most powerful machine-learning models that are used for these tasks and learn how to process an image using those tools. What we can do with these results is up to you.
 
 ### [Tracking](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Tracking)
 
 Track objects and regions of images using [opencv](https://docs.opencv.org/4.x/). In this module, we will focus on tracking the position of our objects in our image in time. We will check advanced methods to find something important in the image and keep following it without losing its trail. Once you can track objects optimally, you can build anything around this to create a nice project.
+
+### [Virtual PPG](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/VirtualPPG)
+
+Implement a real-time virtual heart rate sensor, also called virtual PPG, using [opencv](https://docs.opencv.org/4.x/). In this module, we implement a heart rate sensor from scratch using image processing tools and a simple camera. We will use this case study to get an overview of all the steps required to do image analysis and dive deep into a specific application. When you are able to measure your heart rate in real-time using your camera, you can connect this biomedical information to any other device or application. 
 
 ## Get started
 
