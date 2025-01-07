@@ -7,5 +7,6 @@ What you do with the classification results afterward is only limited by your im
 
 ### Trees
 
-Discover one of the simplest and most powerful machine learning models: the classification trees.
-Learn about machine learning and uncover all the secrets of classification trees and derived algorithms. 
+Discover one of the simplest and most powerful machine learning models: the decision trees.
+Learn about machine learning and uncover all the secrets of decision trees and derived algorithms. 
+Here, we propose two 
