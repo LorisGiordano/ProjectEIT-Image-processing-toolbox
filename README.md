@@ -4,10 +4,6 @@ A set of Python modules to perform machine learning and image processing
 
 ## Structure of the toolbox
 
-### [Classification](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Classification)
-
-Train your own classifiers using [scikit-learn](https://scikit-learn.org). In this module, we will learn more about machine learning: what models are, how models can learn from data, and how we can use machine learning models to perform almost any task. Collect your own dataset and use it to train your own model to classify different inputs. What you do with the classification results afterward is only limited by your imagination.
-
 ### [Detection](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Detection)
 
 Detect objects, colors, edges, faces, people, and much more using [opencv](https://docs.opencv.org/4.x/). In this module, we will explore pure image processing and attempt to detect stuff in raw images. We will look at different techniques to detect shapes, colors, or more complex features in images to create programs that can understand what they see. We will learn simple but very powerful techniques that an engineer can use to process an image and more complex tools, like machine learning models, to perform more difficult tasks. After the image is processed, you can use the results further in any application.
