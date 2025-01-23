@@ -1,10 +1,9 @@
 # Tracking
 
-Recognize hand gestures and faces using opencv and mediapipe. 
-In this module, we dive deeper into the recognition of humans in images so that they can interact with computers. 
-We will understand how our computer can understand human attributes like hands and faces and how we can optimize this to interact with our computer in real time. 
-We will look at the fastest and most powerful machine-learning models that are used for these tasks and learn how to process an image using those tools. 
-What we can do with these results is up to you.
+Track objects and regions of images using opencv. 
+In this module, we will focus on tracking the position of our objects in our image in time. 
+We will check advanced methods to find something important in the image and keep following it without losing its trail. 
+Once you can track objects optimally, you can build anything around this to create a nice project.
 
 ### 3D tracking
 
