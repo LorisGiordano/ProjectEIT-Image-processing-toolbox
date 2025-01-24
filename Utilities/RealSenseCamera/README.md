@@ -12,17 +12,13 @@ Camera stream access may be achieved manually using the Intel API or using our 
 
 ### Image processing and merging of sensor maps
 
-This module demonstrates how to process 3D data from the Intel RealSense camera:
-
-PointcloudViewer.py  
-
 The demo highlights:
 - Spatial & Temporal filtering
 - Decimation
 - Colorization
 - Lighting
-The demo relies on the Intel RealSense2 SDK, and is implemented in Python, however alternate bindings are provided in the SDK (eg, MATLAB, C#/.NET).
+The demo relies on the Intel RealSense2 SDK and is implemented in Python. However, alternate bindings are provided in the SDK (eg, MATLAB, C#/.NET).
 
-Other sample code can be found here.
+Other sample codes can be found [here](https://github.com/IntelRealSense/librealsense/tree/development/wrappers/python/examples).
 
-Information on filtering can be found here.
+Information on filtering can be found [here](https://github.com/IntelRealSense/librealsense/blob/jupyter/notebooks/depth_filters.ipynb).
