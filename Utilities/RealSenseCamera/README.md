@@ -20,5 +20,4 @@ The demo highlights:
 The demo relies on the Intel RealSense2 SDK and is implemented in Python. However, alternate bindings are provided in the SDK (eg, MATLAB, C#/.NET).
 
 Other sample codes can be found [here](https://github.com/IntelRealSense/librealsense/tree/development/wrappers/python/examples).
-
 Information on filtering can be found [here](https://github.com/IntelRealSense/librealsense/blob/jupyter/notebooks/depth_filters.ipynb).
