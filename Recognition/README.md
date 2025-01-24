@@ -11,7 +11,11 @@ What we can do with these results is up to you.
 Train a machine learning model to recognize different people on the fly.
 Investigate how local binary pattern histograms are used to encode the face of a human and how to train and run machine learning models.
 
+- More information: [LBPH](https://www.geeksforgeeks.org/face-recognition-with-local-binary-patterns-lbps-and-opencv/)
+  
 ### Hand
 
-Use a state-of-the-art hand detection and hand gesture recognition model developped by Google.
+Use a state-of-the-art hand detection and hand gesture recognition model developed by Google.
 Investigate more advanced machine learning models like deep learning and neural networks. 
+
+- More information: [Hand gestures and landmarks](https://ai.google.dev/edge/mediapipe/solutions/vision/gesture_recognizer/python)
