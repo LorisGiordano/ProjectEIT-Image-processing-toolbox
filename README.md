@@ -1,99 +1,203 @@
+🇳🇱 Nederlands | [🇬🇧 English](./README_en.md)
+
 # Project EIT - Image processing toolbox
 
-A set of Python modules to perform machine learning and image processing
+Een verzameling Python modules om image processing te gebruiken in je
+project.
 
-## Structure of the toolbox
+## Structuur van de toolbox
 
-### [Detection](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Detection/README.md)
+### [Detection](https://github.com/LorisGiordano/Image_Processing/tree/main/Detection)
 
-Detect objects, colors, edges, faces, people, and much more using [opencv](https://docs.opencv.org/4.x/). In this module, we will explore pure image processing and attempt to detect stuff in raw images. We will look at different techniques to detect shapes, colors, or more complex features in images to create programs that can understand what they see. We will learn simple but very powerful techniques that an engineer can use to process an image and more complex tools, like machine learning models, to perform more difficult tasks. After the image is processed, you can use the results further in any application.
+Detecteer objecten, kleuren, randen, gezichten, mensen en nog veel meer
+met behulp van [OpenCV](https://docs.opencv.org/4.x/). In deze module
+verkennen we pure image processing en proberen we dingen te detecteren
+in raw images. We bekijken verschillende technieken om vormen, kleuren
+of meer complexe features te detecteren in beelden, zodat we programma's
+kunnen maken die begrijpen wat ze zien. We leren eenvoudige maar
+krachtige technieken die een ingenieur kan gebruiken om een image te
+verwerken, en ook complexere tools zoals machine learning models om
+moeilijkere taken uit te voeren. Na het verwerken van het beeld kun je
+de resultaten verder gebruiken in elke applicatie.
 
-### [Recognition](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Recognition/README.md)
+### [Recognition](https://github.com/LorisGiordano/Image_Processing/tree/main/Recognition)
 
-Recognize hand gestures and faces using [opencv](https://docs.opencv.org/4.x/) and [mediapipe](https://ai.google.dev/edge/mediapipe/solutions/guide). In this module, we dive deeper into the recognition of humans in images so that they can interact with computers. We will understand how our computer can understand human attributes like hands and faces and how we can optimize this to interact with our computer in real-time. We will look at the fastest and most powerful machine-learning models that are used for these tasks and learn how to process an image using those tools. What we can do with these results is up to you.
+Herken handgebaren en gezichten met
+[OpenCV](https://docs.opencv.org/4.x/) en
+[Mediapipe](https://ai.google.dev/edge/mediapipe/solutions/guide). In
+deze module duiken we dieper in de herkenning van mensen in images zodat
+ze kunnen interageren met computers. We leren begrijpen hoe onze
+computer menselijke eigenschappen zoals handen en gezichten kan
+herkennen en hoe we dit kunnen optimaliseren voor real-time interactie.
+We bekijken de snelste en krachtigste machine learning models die
+hiervoor worden gebruikt en leren hoe we een image kunnen verwerken met
+deze tools. Wat je met de resultaten doet, is aan jou.
 
-### [Tracking](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/Tracking/README.md)
+### [Tracking](https://github.com/LorisGiordano/Image_Processing/tree/main/Tracking)
 
-Track objects and regions of images using [opencv](https://docs.opencv.org/4.x/). In this module, we will focus on tracking the position of our objects in our image in time. We will check advanced methods to find something important in the image and keep following it without losing its trail. Once you can track objects optimally, you can build anything around this to create a nice project.
+Volg objecten en regio's in images met behulp van
+[OpenCV](https://docs.opencv.org/4.x/). In deze module focussen we op
+het tracken van de positie van onze objecten in de tijd. We bekijken
+geavanceerde methodes om iets belangrijks in het beeld te vinden en het
+te blijven volgen zonder het spoor te verliezen. Zodra je objecten
+optimaal kunt tracken, kun je hier alles omheen bouwen om een mooi
+project te realiseren.
 
-### [Virtual PPG](https://github.com/LorisGiordano/ProjectEIT-Image-processing-toolbox/tree/main/VirtualPPG/README.md)
+### [Virtual PPG](https://github.com/LorisGiordano/Image_Processing/tree/main/VirtualPPG)
 
-Implement a real-time virtual heart rate sensor, also called virtual PPG, using [opencv](https://docs.opencv.org/4.x/). In this module, we implement a heart rate sensor from scratch using image processing tools and a simple camera. We will use this case study to get an overview of all the steps required to do image analysis and dive deep into a specific application. When you are able to measure your heart rate in real-time using your camera, you can connect this biomedical information to any other device or application. 
+Implementeer een real-time virtuele hartslagmeter, ook wel virtual PPG
+genoemd, met behulp van [OpenCV](https://docs.opencv.org/4.x/). In deze
+module bouwen we een hartslagmeter vanaf nul met image processing tools
+en een eenvoudige camera. We gebruiken deze case study om een overzicht
+te krijgen van alle stappen die nodig zijn voor image analysis en duiken
+dieper in een specifieke toepassing. Wanneer je je hartslag in real-time
+kunt meten met je camera, kun je deze biomedische informatie koppelen
+aan andere apparaten of applicaties.
 
-## Get started
+## Aan de slag
 
-### The Anaconda environment
+### De Anaconda environment
 
-For this first encounter with advanced Python coding, project management, image processing, and machine learning, we advise you to use the [Anaconda](https://anaconda.org) environment, a popular Python data science platform. Development and exploration are made easy thanks to the different tools provided by Anaconda.
+Voor deze eerste kennismaking met geavanceerd Python coding, project
+management, image processing en machine learning raden we aan de
+[Anaconda](https://anaconda.org) environment te gebruiken, een populair
+Python data science platform. Development en exploratie worden
+eenvoudiger dankzij de verschillende tools die Anaconda aanbiedt.
 
-#### 1. Install Anaconda
+#### 1. Installeer Anaconda
 
-If not done yet, click on the following link to download [Anaconda](https://www.anaconda.com/download/success) for your operating system. Follow the [installation guide](https://docs.anaconda.com/anaconda/install/) and create your [first Python program](https://docs.anaconda.com/anaconda/getting-started/hello-world/)!
+Als je dit nog niet gedaan hebt, klik dan op de volgende link om
+[Anaconda](https://www.anaconda.com/download/success) te downloaden voor
+jouw operating system. Volg de [installation
+guide](https://docs.anaconda.com/anaconda/install/) en maak je [eerste
+Python
+programma](https://docs.anaconda.com/anaconda/getting-started/hello-world/)!
 
 [<img width="1728" alt="Screenshot 2024-02-23 at 13 02 22" src="https://github.com/vubir-projectEIT/Image_Processing/assets/152272505/c96af1be-6622-4fca-9b58-d3c694fd112b">](https://www.anaconda.com/download/success)
 
+#### 2. Stel je environment in
 
-#### 2. Setup your environment
+De tweede stap is het instellen van je environment zodat je volledige
+controle hebt over de code die je uitvoert en de packages die je
+installeert. Volg deze stappen om de environment aan te maken en te
+activeren die je tijdens het project zal gebruiken.
 
-The second step will be to set up your environment to have full control over the code that you run and the packages that you install. Follow the following steps to create and activate the environment that you will use during the project.
-
-- Open your Terminal (MacOS/Linux) or Anaconda Prompt (Windows)
+-   Open je Terminal (MacOS/Linux) of Anaconda Prompt (Windows)
 
 <img height="350" alt="MacOS Terminal" src="https://github.com/user-attachments/assets/736567fd-a9c7-4e43-81cb-bc14e5d7091d">
 <img height="350" alt="Windows Anaconda Prompt" src="https://github.com/user-attachments/assets/49962f75-c2d1-4950-918a-eafb0a3888e4">
 
-- Create your environment and install Python:
+-   Maak je environment aan en installeer Python (dit hoef je maar één
+    keer te doen):
 
-`conda create --name <your_environment_name>`
+``` bash
+conda install --name eit python=3.12
+```
 
-`conda install --name <your_environment_name> python=3.12`
+-   Activeer je environment (dit moet je
+    elke keer doen wanneer je de terminal opent):
 
-- Activate your environment and setup a project folder
+``` bash
+conda activate eit
+```
 
-`conda activate <your_environment_name>`
+#### 3. Maak een project folder aan
 
-`cd <path_to_your_project_folder>`
+-    MacOS/Linux
+  
+``` bash
+mkdir ~/Desktop/ProjectEIT
+cd ~/Desktop/ProjectEIT
+```
 
-You are now ready to start your project! 
+-    Windows
+  
+``` bash
+mkdir %USERPROFILE%\Desktop\ProjectEIT
+cd %USERPROFILE%\Desktop\ProjectEIT
+```
 
-#### 3. Setup your IDE
+Je bent nu klaar om aan je project te beginnen!
 
-Developing your Python scripts in your text editor is possible but very impractical. Developers instead use Integrate Developers Environments, or IDE for short. It is strongly recommended to work in Spyder (or PyCharm if you prefer) from inside Anaconda. Follow the following steps to install and run Spyder in your newly created environment.
+#### 4. Stel je IDE in
 
-- Install Spyder:
+Je Python scripts schrijven in een gewone text editor is mogelijk, maar
+niet praktisch. Ontwikkelaars gebruiken daarom een Integrated
+Development Environment (IDE). Het is sterk aangeraden om in Spyder (of
+PyCharm als je dat verkiest) te werken vanuit Anaconda. Volg deze
+stappen om Spyder te installeren en te gebruiken in je zojuist
+aangemaakte environment.
 
-`conda install spyder`
+-   Installeer Spyder:
 
-- Run Spyder:
+``` bash
+conda install spyder
+```
 
-`spyder`
+-   Start Spyder:
 
-You are now ready to write your first script!
+``` bash
+spyder
+```
 
+Je bent nu klaar om je eerste script te schrijven!
 
-### Usefull packages and dependencies
+### Nuttige packages en dependencies
 
-#### 1. Usual imports
+#### 1. Onmisbare imports
 
-Several packages are a must for an engineer when developing any kind of Python application:
+Enkele packages zijn onmisbaar voor een ingenieur die met Python
+applicaties werkt:
 
-- [Numpy](https://numpy.org/doc/stable/reference/index.html#reference)
-- [Matplotlib](https://matplotlib.org/stable/users/index) / [Seaborn](https://seaborn.pydata.org/index.html)
+-   [Numpy](https://numpy.org/doc/stable/reference/index.html#reference)
+-   [Matplotlib](https://matplotlib.org/stable/users/index) /
+    [Seaborn](https://seaborn.pydata.org/index.html)
+
+``` bash
+pip install numpy
+pip install matplotlib
+```
 
 #### 2. OpenCV
 
-[OpenCV (Open Source Computer Vision Library)](https://docs.opencv.org/4.x/) is an open-source computer vision and machine learning software library. It supports several programming languages, such as Python, Java, C, and C++.  We will, however, be using Python for most of our openCV applications in this course. Run the following command line in your Terminal (MacOS/Linux) or Anaconda Prompt (Windows). Make sure that your environment is activated!
+[OpenCV (Open Source Computer Vision
+Library)](https://docs.opencv.org/4.x/) is een open-source computer
+vision en machine learning software library. Het ondersteunt
+verschillende programmeertalen zoals Python, Java, C en C++. Wij zullen
+echter Python gebruiken voor het grootste deel van onze OpenCV
+toepassingen in deze cursus. Voer de volgende command line uit in je
+Terminal (MacOS/Linux) of Anaconda Prompt (Windows). Zorg dat je
+environment geactiveerd is!
 
-`pip install opencv-contrib-python==4.9.0.80`
+``` bash
+pip install opencv-contrib-python==4.9.0.80
+```
 
 #### 3. Scikit-learn
 
-[Scikit-learn](https://scikit-learn.org/stable/) is an open-source machine learning libarary for Python. It is a very powerful combination of modules that range from the implemention of all kinds of models, to pre-processing and post-processing. Run the following command line in your Terminal (MacOS/Linux) or Anaconda Prompt (Windows). Make sure that your environment is activated!
+[Scikit-learn](https://scikit-learn.org/stable/) is een open-source
+machine learning library voor Python. Het bevat een zeer krachtige
+verzameling modules die alles aanbieden van model-implementatie tot
+pre-processing en post-processing. Voer de volgende command line uit in
+je Terminal (MacOS/Linux) of Anaconda Prompt (Windows). Zorg dat je
+environment geactiveerd is!
 
-`conda install scikit-learn`
+``` bash
+conda install scikit-learn
+```
 
 #### 4. Mediapipe
 
-[Mediapipe (by Google)](https://ai.google.dev/edge/mediapipe/solutions/guide) is an open-source library for artificial intelligence and machine learning. It proposes several cutting-edge trained models to perform all kinds of tasks in an efficient way. Additionally, it provides the possibility for advanced programmers to customize their models to run powerful real-time applications. Run the following command line in your Terminal (MacOS/Linux) or Anaconda Prompt (Windows). Make sure that your environment is activated!
+[Mediapipe (by
+Google)](https://ai.google.dev/edge/mediapipe/solutions/guide) is een
+open-source library voor artificial intelligence en machine learning.
+Het biedt verschillende cutting-edge getrainde modellen om allerlei
+taken efficiënt uit te voeren. Bovendien geeft het de mogelijkheid aan
+gevorderde programmeurs om hun modellen te customizen en krachtige
+real-time applicaties te draaien. Voer de volgende command line uit in
+je Terminal (MacOS/Linux) of Anaconda Prompt (Windows). Zorg dat je
+environment geactiveerd is!
 
-`pip install mediapipe==0.10.18`
+``` bash
+pip install mediapipe==0.10.18
+```
