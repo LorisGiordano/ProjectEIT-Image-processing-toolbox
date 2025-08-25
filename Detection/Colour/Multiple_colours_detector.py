@@ -17,6 +17,12 @@ import cv2
 #function to draw contours around detected colors as well as print some text
 def draw_contours(mask, color):
 
+    # morphological operations
+    kernel = np.ones((5, 5), np.uint8)
+    mask = cv2.erode(mask, kernel, iterations=2)
+    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel)
+    mask = cv2.dilate(mask, kernel, iterations=1)
+
     # find contours in the masked image.
     cnts, _ = cv2.findContours(mask.copy(),
                                     cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -53,9 +59,6 @@ if __name__ == "__main__":
     width  = cap.get(3)   # float `width`
     height = cap.get(4)
 
-    # define a kernel for morphological operations
-    kernel = np.ones((5, 5), np.uint8)
-
     # BGR definitions for some colors
     blue = {"name": 'blue', "bgr": [255, 0, 0]}
     red = {"name": 'red', "bgr": [0, 0, 255]}
@@ -77,9 +80,6 @@ if __name__ == "__main__":
         low_blue = np.array([94, 80, 2])
         high_blue = np.array([126, 255, 255])
         blue_mask = cv2.inRange(hsv_frame, low_blue, high_blue)
-        blue_mask = cv2.erode(blue_mask, kernel, iterations=2)
-        blue_mask = cv2.morphologyEx(blue_mask, cv2.MORPH_OPEN, kernel)
-        blue_mask = cv2.dilate(blue_mask, kernel, iterations=1)
         draw_contours(blue_mask, blue)
         # blue = cv2.bitwise_and(frame, frame, mask=blue_mask)
     
@@ -88,9 +88,6 @@ if __name__ == "__main__":
         low_green = np.array([40, 52, 72])
         high_green = np.array([102, 255, 255])
         green_mask = cv2.inRange(hsv_frame, low_green, high_green)
-        green_mask = cv2.erode(green_mask, kernel, iterations=2)
-        green_mask = cv2.morphologyEx(green_mask, cv2.MORPH_OPEN, kernel)
-        green_mask = cv2.dilate(green_mask, kernel, iterations=1)
         draw_contours(green_mask, green)
         # green = cv2.bitwise_and(frame, frame, mask=green_mask)
     
@@ -114,9 +111,6 @@ if __name__ == "__main__":
         mask2 = cv2.inRange(hsv_frame, lower_red, upper_red)
         # Generating the final mask to detect red color
         red_mask = mask1 + mask2
-        red_mask = cv2.erode(red_mask, kernel, iterations=2)
-        red_mask = cv2.morphologyEx(red_mask, cv2.MORPH_OPEN, kernel)
-        red_mask = cv2.dilate(red_mask, kernel, iterations=1)
         draw_contours(red_mask,red)
         # red = cv2.bitwise_and(frame, frame, mask=red_mask)
         
@@ -125,9 +119,6 @@ if __name__ == "__main__":
         low_yellow = np.array([20, 100, 100])
         high_yellow = np.array([30, 255, 255])
         yellow_mask = cv2.inRange(hsv_frame, low_yellow, high_yellow)
-        yellow_mask = cv2.erode(yellow_mask, kernel, iterations=2)
-        yellow_mask = cv2.morphologyEx(yellow_mask, cv2.MORPH_OPEN, kernel)
-        yellow_mask = cv2.dilate(yellow_mask, kernel, iterations=1)
         draw_contours(yellow_mask, yellow)
         
         
@@ -135,9 +126,6 @@ if __name__ == "__main__":
         low_black = np.array([0, 0, 0])
         high_black = np.array([100, 100, 100])
         black_mask = cv2.inRange(hsv_frame, low_black, high_black)
-        black_mask = cv2.erode(black_mask, kernel, iterations=2)
-        black_mask = cv2.morphologyEx(black_mask, cv2.MORPH_OPEN, kernel)
-        black_mask = cv2.dilate(black_mask, kernel, iterations=1)
         draw_contours(black_mask, black)
         
         
