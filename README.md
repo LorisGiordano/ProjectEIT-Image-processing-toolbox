@@ -154,7 +154,7 @@ applicaties werkt:
     [Seaborn](https://seaborn.pydata.org/index.html)
 
 ``` bash
-pip install numpy
+pip install numpy==1.26.4
 pip install matplotlib
 ```
 
@@ -170,7 +170,7 @@ Terminal (MacOS/Linux) of Anaconda Prompt (Windows). Zorg dat je
 environment geactiveerd is!
 
 ``` bash
-pip install opencv-contrib-python==4.9.0.80
+pip install opencv-contrib-python==4.11.0.86
 ```
 
 #### 3. Scikit-learn
@@ -199,5 +199,5 @@ je Terminal (MacOS/Linux) of Anaconda Prompt (Windows). Zorg dat je
 environment geactiveerd is!
 
 ``` bash
-pip install mediapipe==0.10.18
+pip install mediapipe==0.10.21
 ```
