@@ -91,7 +91,7 @@ activeren die je tijdens het project zal gebruiken.
     keer te doen):
 
 ``` bash
-conda install --name eit python=3.12
+conda create --name eit python=3.12
 ```
 
 -   Activeer je environment (dit moet je
@@ -155,7 +155,7 @@ applicaties werkt:
 
 ``` bash
 pip install numpy==1.26.4
-pip install matplotlib
+pip install matplotlib==3.10.5
 ```
 
 #### 2. OpenCV
@@ -183,7 +183,7 @@ je Terminal (MacOS/Linux) of Anaconda Prompt (Windows). Zorg dat je
 environment geactiveerd is!
 
 ``` bash
-conda install scikit-learn==1.6.1
+pip install scikit-learn==1.6.1
 ```
 
 #### 4. Mediapipe
